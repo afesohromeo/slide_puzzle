@@ -94,12 +94,14 @@ class PuzzleView extends StatelessWidget {
                 ),
               ),
               BlocProvider(
-                create: (context) => PuzzleBloc(4)
-                  ..add(
-                    PuzzleInitialized(
-                      shufflePuzzle: shufflePuzzle,
-                    ),
-                  ),
+                create: (context) {
+                  return PuzzleBloc(4)
+                    ..add(
+                      PuzzleInitialized(
+                        shufflePuzzle: shufflePuzzle,
+                      ),
+                    );
+                },
               ),
             ],
             child: const _Puzzle(
@@ -281,6 +283,7 @@ class PuzzleBoard extends StatelessWidget {
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
 
     final size = puzzle.getDimension();
+    print('tiles ${puzzle.tiles}');
     if (size == 0) return const CircularProgressIndicator();
 
     return PuzzleKeyboardHandler(

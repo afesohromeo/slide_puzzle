@@ -39,6 +39,9 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       if (state.puzzle.isTileMovable(tappedTile)) {
         final mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);
         final puzzle = mutablePuzzle.moveTiles(tappedTile, []);
+        for (final t in puzzle.tiles) {
+          print('update ${t.value}');
+        }
         if (puzzle.isComplete()) {
           emit(
             state.copyWith(
@@ -60,6 +63,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
               lastTappedTile: tappedTile,
             ),
           );
+          print("object tiles ${puzzle.sort().tiles}");
         }
       } else {
         emit(

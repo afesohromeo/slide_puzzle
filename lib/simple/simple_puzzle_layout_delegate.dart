@@ -99,31 +99,27 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           large: 96,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, __) => SizedBox.square(
-            dimension: _BoardSize.small,
-            child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_small'),
-              size: size,
-              tiles: tiles,
-              spacing: 5,
-            ),
-          ),
-          medium: (_, __) => SizedBox.square(
-            dimension: _BoardSize.medium,
-            child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_medium'),
-              size: size,
-              tiles: tiles,
-            ),
-          ),
-          large: (_, __) => SizedBox.square(
-            dimension: _BoardSize.large,
-            child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_large'),
-              size: size,
-              tiles: tiles,
-            ),
-          ),
+          small: (_, child) =>
+              SizedBox.square(dimension: _BoardSize.small, child: child),
+          medium: (_, child) =>
+              SizedBox.square(dimension: _BoardSize.medium, child: child),
+          large: (_, child) =>
+              SizedBox.square(dimension: _BoardSize.large, child: child),
+          child: (_) => // GridView.count(
+              //   padding: EdgeInsets.zero,
+              //   shrinkWrap: true,
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   crossAxisCount: 4,
+              //   mainAxisSpacing: 5,
+              //   crossAxisSpacing: 5,
+              //   children: widget.tiles,
+              //   // List<Widget>.generate(
+              //   //     16,
+              //   //     (index) => Center(
+              //   //           child: Text("data"),
+              //   //         )),
+              // ),
+              Stack(children: tiles),
         ),
         const ResponsiveGap(
           large: 96,
@@ -279,15 +275,17 @@ class SimplePuzzleBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: size,
-      mainAxisSpacing: spacing,
-      crossAxisSpacing: spacing,
-      children: tiles,
-    );
+    return
+        // GridView.count(
+        //   padding: EdgeInsets.zero,
+        //   shrinkWrap: true,
+        //   physics: const NeverScrollableScrollPhysics(),
+        //   crossAxisCount: size,
+        //   mainAxisSpacing: spacing,
+        //   crossAxisSpacing: spacing,
+        //   children: tiles,
+        // );
+        Stack(children: tiles);
   }
 }
 

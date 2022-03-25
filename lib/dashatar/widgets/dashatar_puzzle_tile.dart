@@ -139,9 +139,9 @@ class DashatarPuzzleTileState extends State<DashatarPuzzleTile>
                 _controller.reverse();
               }
             },
-            child: ScaleTransition(
+            child: ClipRRect(
               key: Key('dashatar_puzzle_tile_scale_${widget.tile.value}'),
-              scale: _scale,
+              // scale: _scale,
               child: IconButton(
                 padding: EdgeInsets.zero,
                 onPressed: canPress

@@ -75,30 +75,52 @@ class DashatarPuzzleLayoutDelegate extends PuzzleLayoutDelegate {
 
   @override
   Widget boardBuilder(int size, List<Widget> tiles) {
-    return Stack(
+    return Column(
       children: [
-        Positioned(
-          top: 24,
-          left: 0,
-          right: 0,
-          child: ResponsiveLayoutBuilder(
-            small: (_, child) => const SizedBox(),
-            medium: (_, child) => const SizedBox(),
-            large: (_, child) => const DashatarTimer(),
-          ),
+        const ResponsiveGap(
+          small: 21,
+          medium: 34,
+          large: 96,
         ),
-        Column(
-          children: [
-            const ResponsiveGap(
-              small: 21,
-              medium: 34,
-              large: 96,
-            ),
-            DashatarPuzzleBoard(tiles: tiles),
-            const ResponsiveGap(
-              large: 96,
-            ),
-          ],
+        // ResponsiveLayoutBuilder(
+        //   small: (_, child) => const SizedBox(),
+        //   medium: (_, child) => const SizedBox(),
+        //   large: (_, child) => const DashatarTimer(),
+        // ),
+        ResponsiveLayoutBuilder(
+          small: (_, child) => SizedBox.square(
+            key: const Key('dashatar_puzzle_board_small'),
+            dimension: 312,
+            child: child,
+          ),
+          medium: (_, child) => SizedBox.square(
+            key: const Key('dashatar_puzzle_board_medium'),
+            dimension: 424,
+            child: child,
+          ),
+          large: (_, child) => SizedBox.square(
+            key: const Key('dashatar_puzzle_board_large'),
+            dimension: 472,
+            child: child,
+          ),
+          child: (_) => GridView.count(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
+            mainAxisSpacing: 5,
+            crossAxisSpacing: 5,
+            children: tiles,
+            // List<Widget>.generate(
+            //     16,
+            //     (index) => Center(
+            //           child: Text("data"),
+            //         )),
+          ),
+          // Stack(children: tiles),
+        ),
+        const ResponsiveGap(
+          large: 96,
         ),
       ],
     );

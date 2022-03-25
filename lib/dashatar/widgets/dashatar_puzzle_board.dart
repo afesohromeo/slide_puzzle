@@ -43,52 +43,100 @@ class _DashatarPuzzleBoardState extends State<DashatarPuzzleBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PuzzleBloc, PuzzleState>(
-      listener: (context, state) async {
-        if (state.puzzleStatus == PuzzleStatus.complete) {
-          _completePuzzleTimer =
-              Timer(const Duration(milliseconds: 370), () async {
-            await showAppDialog<void>(
-              context: context,
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider.value(
-                    value: context.read<DashatarThemeBloc>(),
-                  ),
-                  BlocProvider.value(
-                    value: context.read<PuzzleBloc>(),
-                  ),
-                  BlocProvider.value(
-                    value: context.read<TimerBloc>(),
-                  ),
-                  BlocProvider.value(
-                    value: context.read<AudioControlBloc>(),
-                  ),
-                ],
-                child: const DashatarShareDialog(),
-              ),
-            );
-          });
-        }
-      },
-      child: ResponsiveLayoutBuilder(
-        small: (_, child) => SizedBox.square(
-          key: const Key('dashatar_puzzle_board_small'),
-          dimension: _BoardSize.small,
-          child: child,
-        ),
-        medium: (_, child) => SizedBox.square(
-          key: const Key('dashatar_puzzle_board_medium'),
-          dimension: _BoardSize.medium,
-          child: child,
-        ),
-        large: (_, child) => SizedBox.square(
-          key: const Key('dashatar_puzzle_board_large'),
-          dimension: _BoardSize.large,
-          child: child,
-        ),
-        child: (_) => Stack(children: widget.tiles),
+    return ResponsiveLayoutBuilder(
+      small: (_, child) => SizedBox.square(
+        key: const Key('dashatar_puzzle_board_small'),
+        dimension: _BoardSize.small,
+        child: child,
       ),
+      medium: (_, child) => SizedBox.square(
+        key: const Key('dashatar_puzzle_board_medium'),
+        dimension: _BoardSize.medium,
+        child: child,
+      ),
+      large: (_, child) => SizedBox.square(
+        key: const Key('dashatar_puzzle_board_large'),
+        dimension: _BoardSize.large,
+        child: child,
+      ),
+      child: (_) =>
+          // GridView.count(
+          //   padding: EdgeInsets.zero,
+          //   shrinkWrap: true,
+          //   physics: const NeverScrollableScrollPhysics(),
+          //   crossAxisCount: 4,
+          //   mainAxisSpacing: 5,
+          //   crossAxisSpacing: 5,
+          //   children: widget.tiles,
+          //   // List<Widget>.generate(
+          //   //     16,
+          //   //     (index) => Center(
+          //   //           child: Text("data"),
+          //   //         )),
+          // ),
+          Stack(children: widget.tiles),
     );
+    // BlocListener<PuzzleBloc, PuzzleState>(
+    //   listener: (context, state) async {
+    //     if (state.puzzleStatus == PuzzleStatus.complete) {
+    //       _completePuzzleTimer =
+    //           Timer(const Duration(milliseconds: 370), () async {
+    //         await showAppDialog<void>(
+    //           context: context,
+    //           child: MultiBlocProvider(
+    //             providers: [
+    //               BlocProvider.value(
+    //                 value: context.read<DashatarThemeBloc>(),
+    //               ),
+    //               BlocProvider.value(
+    //                 value: context.read<PuzzleBloc>(),
+    //               ),
+    //               BlocProvider.value(
+    //                 value: context.read<TimerBloc>(),
+    //               ),
+    //               BlocProvider.value(
+    //                 value: context.read<AudioControlBloc>(),
+    //               ),
+    //             ],
+    //             child: const DashatarShareDialog(),
+    //           ),
+    //         );
+    //       });
+    //     }
+    //   },
+    //   child: ResponsiveLayoutBuilder(
+    //     small: (_, child) => SizedBox.square(
+    //       key: const Key('dashatar_puzzle_board_small'),
+    //       dimension: _BoardSize.small,
+    //       child: child,
+    //     ),
+    //     medium: (_, child) => SizedBox.square(
+    //       key: const Key('dashatar_puzzle_board_medium'),
+    //       dimension: _BoardSize.medium,
+    //       child: child,
+    //     ),
+    //     large: (_, child) => SizedBox.square(
+    //       key: const Key('dashatar_puzzle_board_large'),
+    //       dimension: _BoardSize.large,
+    //       child: child,
+    //     ),
+    //     child: (_) =>
+    //         // GridView.count(
+    //         //   padding: EdgeInsets.zero,
+    //         //   shrinkWrap: true,
+    //         //   physics: const NeverScrollableScrollPhysics(),
+    //         //   crossAxisCount: 4,
+    //         //   mainAxisSpacing: 5,
+    //         //   crossAxisSpacing: 5,
+    //         //   children: widget.tiles,
+    //         //   // List<Widget>.generate(
+    //         //   //     16,
+    //         //   //     (index) => Center(
+    //         //   //           child: Text("data"),
+    //         //   //         )),
+    //         // ),
+    //         Stack(children: widget.tiles),
+    //   ),
+    // );
   }
 }

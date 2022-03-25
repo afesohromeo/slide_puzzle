@@ -51,7 +51,7 @@ class ResponsiveLayoutBuilder extends StatelessWidget {
         final screenWidth = MediaQuery.of(context).size.width;
 
         if (screenWidth <= PuzzleBreakpoints.small) {
-          return small(context, child?.call(ResponsiveLayoutSize.small));
+          return small(context, child!(ResponsiveLayoutSize.small));
         }
         if (screenWidth <= PuzzleBreakpoints.medium) {
           return medium(context, child?.call(ResponsiveLayoutSize.medium));
